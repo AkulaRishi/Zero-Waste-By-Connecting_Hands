@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donate Items</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      background-color: #3d7ad0;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input, textarea, button {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #3d7ad0;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+
+    button:hover {
+      background-color: #3d7ad0;
+    }
+
+    .view-donations {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .view-donations a {
+      color: #3d7ad0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .view-donations a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Donate Essentials</h1>
+    <p>Make a difference by donating what you can.</p>
+  </header>
+
+  <div class="container">
+    <h2>Donate Items</h2>
+    <form id="donationForm">
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" placeholder="Enter your name" required>
+
+      <label for="item">Item to Donate:</label>
+      <input type="text" id="item" placeholder="E.g., Clothes, Food, etc." required>
+
+      <label for="description">Description:</label>
+      <textarea id="description" rows="4" placeholder="Add details about the donation" required></textarea>
+
+      <button type="submit">Submit Donation</button>
+    </form>
+
+    <div class="view-donations">
+      <p><a href="donations.html">View Donation List</a></p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('donationForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const item = document.getElementById('item').value.trim();
+      const description = document.getElementById('description').value.trim();
+
+      if (name && item && description) {
+        const donations = JSON.parse(localStorage.getItem('donations')) || [];
+        donations.push({ name, item, description });
+        localStorage.setItem('donations', JSON.stringify(donations));
+
+        alert('Donation submitted successfully!');
+        document.getElementById('donationForm').reset();
+      }
+    });
+  </script>
+</body>
+</html>

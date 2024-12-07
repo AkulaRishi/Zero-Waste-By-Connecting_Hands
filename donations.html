@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donation List</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      background-color: #3d7ad0;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    .donation-item {
+      padding: 15px;
+      margin: 10px 0;
+      background: #f9f9f9;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .back-link a {
+      color: #3d7ad0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Donation List</h1>
+    <p>See all donations made so far.</p>
+  </header>
+
+  <div class="container">
+    <div id="donationList"></div>
+    <div class="back-link">
+      <p><a href="donate.html">Back to Donate Page</a></p>
+    </div>
+  </div>
+
+  <script>
+    function displayDonations() {
+      const donationList = document.getElementById('donationList');
+      const donations = JSON.parse(localStorage.getItem('donations')) || [];
+
+      if (donations.length === 0) {
+        donationList.innerHTML = '<p>No donations yet. Be the first to donate!</p>';
+      } else {
+        donationList.innerHTML = donations.map(donation => `
+          <div class="donation-item">
+            <strong>${donation.name}</strong> donated <strong>${donation.item}</strong>
+            <p>${donation.description}</p>
+          </div>
+        `).join('');
+      }
+    }
+
+    // Display donations on page load
+    displayDonations();
+  </script>
+</body>
+</html>
